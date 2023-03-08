@@ -19,7 +19,10 @@ export class AppComponent implements OnInit {
   currencys = [
     {name: 'USD', img: '../assets/usa.png'},
     {name: 'EUR',img: '../assets/eu.png'},
-    {name: 'UAH',img: '../assets/ua.png'}
+    {name: 'UAH',img: '../assets/ua.png'},
+    {name: 'GBP', img: '../assets/gbp.png'},
+    {name: 'CAD', img: '../assets/cad.png'},
+    {name: 'JPY', img: '../assets/jpy.png'}
   ]
   selectedCurrencyFrom = {name: 'USD', img: '../assets/usa.png'};
   selectedCurrencyTo = {name: 'USD', img: '../assets/usa.png'};
