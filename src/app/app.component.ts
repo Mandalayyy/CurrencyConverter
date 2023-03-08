@@ -9,8 +9,7 @@ import { response } from './services/models';
 })
 export class AppComponent implements OnInit {
   title = 'my-app';
-  allData: any
-  curUSD:number|undefined = 0;
+  curUSD:number= 0;
   curEU: number | undefined = 0;
   curGBP: number| undefined = 0;
   valueFrom: number=0;
@@ -36,18 +35,21 @@ export class AppComponent implements OnInit {
 
   getCurrencyUSD(have:string,want:string,amount:number){
     this.data.getData(have,want,amount).subscribe((myData: response)=>{
+      if(myData.new_amount)
       this.curUSD = myData.new_amount
     })
   }
 
   getCurrencyEU(have:string,want:string,amount:number){
     this.data.getData(have,want,amount).subscribe((myData: response)=>{
+      if(myData.new_amount)
       this.curEU = myData.new_amount
     })
   }
 
   getCurrencyGBP(have:string,want:string,amount:number){
     this.data.getData(have,want,amount).subscribe((myData: response)=>{
+      if(myData.new_amount)
       this.curGBP = myData.new_amount
     })
   }
@@ -64,13 +66,7 @@ export class AppComponent implements OnInit {
       this.valueTo = myData.new_amount
     })
   }
-  getCurrencyFlagTo(have:string,want:string,amount:number){
-    this.data.getData(have,want,amount).subscribe((myData: response)=>{
-      if(myData.new_amount)
-      this.valueFrom = myData.new_amount
-    })
-  }
-  getCurrencyFlagFrom(have:string,want:string,amount:number){
+  getCurrencyFlagChanged(have:string,want:string,amount:number){
     this.data.getData(have,want,amount).subscribe((myData: response)=>{
       if(myData.new_amount)
       this.valueTo = myData.new_amount
@@ -97,35 +93,31 @@ export class AppComponent implements OnInit {
     }
    console.log(this.selectedCurrencyTo) 
    this.flagTo = event.value
-    this.getCurrencyFlagTo(this.flagTo,this.flagFrom,this.valueTo)
+    this.getCurrencyFlagChanged(this.selectedCurrencyFrom.name,this.selectedCurrencyTo.name,this.valueFrom)
   }
 
 
-  selectChangeFrom(event:any){
+  selectChangeFrom(event: any){
     let x =  this.currencys.find(e => e.name == event.value);
     if(x){
       this.selectedCurrencyFrom = x;
     }
     this.flagFrom = event.value;
-    console.log(event)
-    this.getCurrencyFlagFrom(this.flagFrom,this.flagTo,this.valueFrom)
+    this.getCurrencyFlagChanged(this.selectedCurrencyFrom.name,this.selectedCurrencyTo.name,this.valueFrom)
   }
 
   onButtonClick(){
     let flag;
-    let value;
     flag = this.flagTo;
-    value = this.valueTo;
     this.flagTo = this.flagFrom;
-    this.valueTo = this.valueFrom
     this.flagFrom = flag;
-    this.valueFrom = value;
     flag = this.selectedCurrencyTo;
     this.selectedCurrencyTo = this.selectedCurrencyFrom;
-    this.selectedCurrencyFrom = flag
-    console.log('to', this.selectedCurrencyTo)
-    console.log('from', this.selectedCurrencyFrom)
+    this.selectedCurrencyFrom = flag;
+    this.getCurrencyValueFrom(this.flagFrom,this.flagTo, this.valueFrom);
   }
+
+  
 }
 
 
