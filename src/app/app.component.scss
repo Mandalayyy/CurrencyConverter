@@ -14,6 +14,7 @@
     background-image: url(../assets/header_bg.jpg);
     width: 100vw;
     height: 25rem;
+    gap: 2rem;
     color: white;
 
     .currency_list{
@@ -21,60 +22,9 @@
         list-style: none;
         gap: 3rem;
         font-size: 1.5rem;
-
-        .currency_item{
-            display: flex;
-            flex-direction: column;
-            gap: .5rem;
-        }
     }
 }
 .card{
     position: absolute;
     top: 12.5rem;
-    width: 50rem;
-    height: 32rem;
-    background: #FFFFFF;
-    box-shadow: 0px 6px 12px rgba(35, 55, 80, 0.3);
-    border-radius: 8px;
-    display: flex;
-    align-items: center;
-    gap: 2rem;
-    justify-content: center;
-
-    .currency{
-        background: rgba(255, 255, 255, 0.002);
-        border: 1px solid #DDDDDD;
-        box-shadow: 0px 3px 15px rgba(0, 17, 51, 0.05);
-        border-radius: 6px;
-        padding: 1rem;
-        width: 14rem;
-       
-    }
-    .currencyField{
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        gap: 1.5rem;
-
-        .text{
-            font-weight: 700;
-        }
-    }
-    .switch{
-        box-sizing: border-box;
-        background-color: #FFFFFF;
-        border: 1px solid #DDDDDD;
-        border-radius: 24.8px;
-        display: flex;
-        flex-direction: row;
-        align-items: flex-start;
-        padding: 16.8px 16.8px 16.8px 16.8px;
-    }
-}
-
-.trigger_text{
-    display: flex;
-    align-items: center;
-    gap: 1rem;
 }

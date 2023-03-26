@@ -1,55 +1,12 @@
 <div class="container">
   <div class="header">
     <h1>Currency Conventor</h1>
-    <ul class="currency_list">
-      <li class="currency_item">
-        <span>USD/UAH</span>
-        <span>{{curUSD}}</span>
-      </li>
-      <li class="currency_item">
-        <span>EUR/UAH</span>
-        <span>{{curEU}}</span>
-      </li>
-      <li class="currency_item">
-        <span>GBP/UAH</span>
-        <span>{{curGBP}}</span>
-      </li>
-    </ul>
-  </div>
-  <div class="card">
-    <div class="currencyField">
-      <span class="text">From</span>
-      <input class="currency" type="text" (input)="inputHandlerValueFrom($event)" value={{valueFrom}}> 
-      <mat-select  class="currency select" (selectionChange)="selectChangeFrom($event)" [(ngModel)]="flagFrom">
-        <mat-select-trigger class="trigger_text" >
-          <img  with="30" height="30" [src]="selectedCurrencyFrom.img">
-          {{selectedCurrencyFrom.name}}
-        </mat-select-trigger>
-        <mat-option *ngFor="let currency of currencys" [value]="currency.name">
-          <img  with="30" height="30" [src]="currency.img">
-          {{currency.name}}
-        </mat-option>
-      </mat-select>
-    </div>
-    <div>
-      <button (click)="onButtonClick()" class="switch">
-        <img src="../assets/button.svg" alt="">  
-      </button>
-    </div>
-    <div class="currencyField">
-      <span class="text">To</span>
-      <input class="currency"  type="text" (input)="inputHandlerValueTo($event)" value={{valueTo}}>
-      <mat-select class="currency select" (selectionChange)="selectChangeTo($event)" [(ngModel)]="flagTo">
-        <mat-select-trigger class="trigger_text">
-          <img  with="30" height="30" [src]="selectedCurrencyTo.img">
-          {{selectedCurrencyTo.name}}
-        </mat-select-trigger>
-        <mat-option class="option" *ngFor="let currency of currencys" [value]="currency.name">
-          <img with="30" height="30" [src]="currency.img">
-          {{currency.name}}
-        </mat-option>
-      </mat-select>
+    <div class="currency_list">
+      <app-currency class="currency_item"  *ngFor="let topCurrency of topCurrencys"
+      [have]="topCurrency.have"
+      [want]="topCurrency.want"
+    ></app-currency>
     </div>
   </div>
+  <app-currency-value class="card"></app-currency-value>
 </div>
-
