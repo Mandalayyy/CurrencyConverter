@@ -1,7 +1,7 @@
 <div class="card">
   <div class="currencyField">
     <span class="text">From</span>
-    <input class="currency" type="text" (input)="inputHandlerValueFrom($event)" numericOnly debounceTime="1000"   [(ngModel)]='allData.old_amount' [formControl]="inputControl_From"> 
+    <input class="currency" type="text" (input)="inputHandlerValueFrom($event)" numericOnly debounceTime="1000"   [(ngModel)]='allData.old_amount'> 
     <mat-select  class="currency select" (selectionChange)="selectChangeFrom($event)" [(ngModel)]="allData.old_currency">
       <mat-select-trigger class="trigger_text" >
         <img  with="30" height="30" [src]="selectedCurrencyFrom.img">
@@ -20,7 +20,7 @@
   </div>
   <div class="currencyField">
     <span class="text">To</span>
-    <input class="currency"  type="text"  (input)="inputHandlerValueTo($event)" numericOnly debounceTime="1000"  [(ngModel)]="allData.new_amount" [formControl]="inputControl_To">
+    <input class="currency"  type="text"  (input)="inputHandlerValueTo($event)" numericOnly debounceTime="1000"  [(ngModel)]="allData.new_amount" >
     <mat-select class="currency select" (selectionChange)="selectChangeTo($event)" [(ngModel)]="allData.new_currency">
       <mat-select-trigger class="trigger_text">
         <img  with="30" height="30" [src]="selectedCurrencyTo.img">

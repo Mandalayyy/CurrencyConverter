@@ -1,22 +1,17 @@
 import { ChangeDetectionStrategy,  Component, ChangeDetectorRef } from '@angular/core';
-import { FormControl } from '@angular/forms';
 import { MatSelectChange } from '@angular/material/select';
 import {CurrencyConverterService} from '../services/currency-converter.service';
 import { response } from '../services/models';
-import { debounceTime } from 'rxjs/operators';
 
 
 @Component({
   selector: 'app-currency-value',
-  templateUrl: '../html/app.currencyValue.html',
-  styleUrls: ['../styles/app.currencyValue.scss'],
+  templateUrl: 'app.currencyValue.html',
+  styleUrls: ['app.currencyValue.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class AppCurrencyValueComponent{
   title = 'my-app';
-
-  inputControl_To = new FormControl('');
-  inputControl_From = new FormControl('');
 
   allData: response = {
     new_amount: 0,
@@ -39,16 +34,6 @@ export class AppCurrencyValueComponent{
   selectedCurrencyTo = {name: 'USD', img: '../assets/usa.png'};
   
   constructor(private data: CurrencyConverterService,private cdr: ChangeDetectorRef) {
-    this.inputControl_To.valueChanges
-    .pipe(debounceTime(1500))
-    .subscribe(value => {
-      
-    });
-    this.inputControl_From.valueChanges
-    .pipe(debounceTime(1500))
-    .subscribe(value => {
-      
-    });
   }
 
 
@@ -60,9 +45,32 @@ export class AppCurrencyValueComponent{
       this.allData = myData;
       setTimeout(()=>{
         this.cdr.detectChanges();
-      },500)
+      },1000)
       
     })
+  }
+
+  getCurrencyValueTo(have:string,want:string,amount:number){
+    this.data.getData(have,want,amount).subscribe((myData: response) => {
+      this.allData.old_amount = myData.new_amount;
+      this.allData.new_amount = myData.old_amount
+      setTimeout(()=>{
+        this.cdr.detectChanges();
+      },1000)
+      
+    })
+  }
+
+  updateCurrency(){
+    if(this.allData.old_amount && this.allData.old_currency && this.allData.new_currency){
+      this.getCurrencyValue(this.allData.old_currency,this.allData.new_currency,this.allData.old_amount)
+     }
+  }
+
+  updateCurrencyTo(){
+    if(this.allData.new_amount && this.allData.old_currency && this.allData.new_currency){
+      this.getCurrencyValueTo(this.allData.new_currency,this.allData.old_currency, this.allData.new_amount)
+    }
   }
 
   inputHandlerValueFrom(event: Event){
@@ -70,9 +78,7 @@ export class AppCurrencyValueComponent{
     const value = parseInt(inputElement.value)
     if(value){
     this.allData.old_amount = value;
-    if(this.allData.old_amount && this.allData.old_currency && this.allData.new_currency){
-     this.getCurrencyValue(this.allData.old_currency,this.allData.new_currency,this.allData.old_amount)
-    }
+    this.updateCurrency();
     }
   }
   inputHandlerValueTo(event: Event){
@@ -80,8 +86,7 @@ export class AppCurrencyValueComponent{
     const value = parseInt(inputElement.value)
     if(value){
       this.allData.new_amount = value;
-      if(this.allData.new_amount && this.allData.old_currency && this.allData.new_currency)
-      this.getCurrencyValue(this.allData.new_currency,this.allData.old_currency, this.allData.new_amount)
+      this.updateCurrencyTo();
     }
   }
 
@@ -91,8 +96,7 @@ export class AppCurrencyValueComponent{
       this.selectedCurrencyTo = x;
     }
    this.allData.new_currency = event.value
-   if(this.allData.old_amount && this.allData.old_currency && this.allData.new_currency)
-    this.getCurrencyValue(this.selectedCurrencyFrom.name,this.selectedCurrencyTo.name,this.allData.old_amount)
+   this.updateCurrency();
   }
 
 
@@ -102,8 +106,7 @@ export class AppCurrencyValueComponent{
       this.selectedCurrencyFrom = x;
     }
     this.allData.old_currency = event.value;
-    if(this.allData.old_amount && this.allData.old_currency && this.allData.new_currency)
-    this.getCurrencyValue(this.selectedCurrencyFrom.name,this.selectedCurrencyTo.name,this.allData.old_amount)
+    this.updateCurrency();
   }
 
   onButtonClick(){
@@ -114,8 +117,7 @@ export class AppCurrencyValueComponent{
     flag = this.selectedCurrencyTo;
     this.selectedCurrencyTo = this.selectedCurrencyFrom;
     this.selectedCurrencyFrom = flag;
-    if(this.allData.old_amount && this.allData.old_currency && this.allData.new_currency)
-    this.getCurrencyValue(this.allData.old_currency,this.allData.new_currency, this.allData.old_amount);
+    this.updateCurrency();
   }
   
 }

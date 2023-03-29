@@ -5,8 +5,8 @@ import { response } from '../services/models';
 
 @Component({
   selector: 'app-currency',
-  templateUrl: '../html/app.currency.html',
-  styleUrls: ['../styles/app.currency.scss']
+  templateUrl: 'app.currency.html',
+  styleUrls: ['app.currency.scss']
 })
 export class AppCurrencyComponent implements OnInit {
     @Input() have = "1";
