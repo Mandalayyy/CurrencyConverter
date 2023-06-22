@@ -7,15 +7,15 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {MatSelectModule} from '@angular/material/select';
-import { AppCurrencyComponent } from './app.currency/app.currency';
-import { AppCurrencyValueComponent } from './app.currencyValue/app.currency-value.component';
 import { ReactiveFormsModule } from '@angular/forms';
+import { CurrencyComponent } from './components/currency/currency.component';
+import { CurrencyConverterComponent } from './components/currency-converter/currency-converter.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    AppCurrencyComponent,
-    AppCurrencyValueComponent
+    CurrencyComponent,
+    CurrencyConverterComponent
   ],
   imports: [
     BrowserModule,
